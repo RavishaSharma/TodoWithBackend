@@ -19,7 +19,7 @@ public class TodoService
         var indexKeys = Builders<Todo>.IndexKeys.Ascending(todo => todo.id);
         var indexModel = new CreateIndexModel<Todo>(indexKeys, indexOptions);
         todoCollection.Indexes.CreateOneAsync(indexModel);
-        
+
         var indexes = database.GetCollection<Todo>("todo_collection").Indexes.List().ToList();
 
         foreach (var index in indexes)
@@ -44,7 +44,8 @@ public class TodoService
 
     public async Task<Todo> getTodo(string Id)
     {
-        return await todoCollection.Find<Todo>(todo => todo.todo_id == Id).FirstOrDefaultAsync();
+        // return await todoCollection.Find<Todo>(todo => todo.todo_id == Id).FirstOrDefaultAsync();
+        return await todoCollection.Find<Todo>(todo => todo.id == Id).FirstOrDefaultAsync();
         //return order.Find(x => x.id == Id);
     }
 
